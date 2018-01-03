@@ -40,7 +40,7 @@ function fsc.show(name, formspec, context, callback)
 		context = {}
 	end
 
-	-- erase old context!
+	-- invalidate any old data from previous formspecs by overwriting it
 	local id = "fsc:" .. make_new_random_id()
 	_data[name] = {
 		id = id,
@@ -71,7 +71,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 	if data.name ~= name then
-		minetest.log("error", "fsc: possible hash collision or exploit (name mismatch)")
+		minetest.log("error", "fsc: internal error (name mismatch)")
 		minetest.close_formspec(name, formname)
 		_data[name] = nil
 		return
