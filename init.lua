@@ -54,6 +54,10 @@ end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if not formname:match("fsc:") then
+		-- invalidate fsc data for this player
+		local name = player:get_player_name()
+		_data[name] = nil
+
 		return false
 	end
 
